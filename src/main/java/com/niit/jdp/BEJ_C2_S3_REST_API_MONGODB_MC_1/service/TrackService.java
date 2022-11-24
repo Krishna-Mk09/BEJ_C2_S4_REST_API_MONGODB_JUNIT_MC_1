@@ -14,5 +14,7 @@ public interface TrackService {
 
     boolean deleteTrackById(int trackId);
 
-    List<Track> getAllTracksByTrackName(String trackName);
+    List<Track> findTrackTrackName(String trackName);
+
+
 }
