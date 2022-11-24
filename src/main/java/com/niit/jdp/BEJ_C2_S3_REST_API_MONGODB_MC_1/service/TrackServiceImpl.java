@@ -18,35 +18,66 @@ import java.util.Optional;
 
 @Service
 public class TrackServiceImpl implements TrackService {
+    // A field injection.
     private final TrackRepository trackRepository;
 
+    // A constructor injection.
     @Autowired
     public TrackServiceImpl(TrackRepository trackRepository) {
         this.trackRepository = trackRepository;
     }
 
+    /**
+     * It saves the track to the database.
+     *
+     * @param track The track object that needs to be saved.
+     * @return Track
+     */
     @Override
     public Track saveTrack(Track track) {
         return trackRepository.save(track);
     }
 
+    /**
+     * > The function returns a list of all tracks in the database
+     *
+     * @return A list of all tracks in the database.
+     */
     @Override
     public List<Track> getAllTracks() {
         return trackRepository.findAll();
     }
 
+    /**
+     * > This function returns the track with the given id
+     *
+     * @param trackId The id of the track to be searched.
+     * @return Optional<Track>
+     */
     @Override
     public Optional<Track> getTrackById(int trackId) {
         return trackRepository.findById(trackId);
     }
 
 
+    /**
+     * It deletes the track by id.
+     *
+     * @param trackId The id of the track to be deleted.
+     * @return boolean
+     */
     @Override
     public boolean deleteTrackById(int trackId) {
         trackRepository.deleteById(trackId);
         return true;
     }
 
+    /**
+     * > This function is used to find all the tracks with the given track name
+     *
+     * @param trackName The name of the track.
+     * @return A list of tracks with the same track name.
+     */
     @Override
     public List<Track> findTrackTrackName(String trackName) {
         return trackRepository.findAllTrackTrackName(trackName);

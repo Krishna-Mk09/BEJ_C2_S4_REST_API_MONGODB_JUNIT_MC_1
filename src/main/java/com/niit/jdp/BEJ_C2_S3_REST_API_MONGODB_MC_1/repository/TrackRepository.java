@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// This is a custom query to find all tracks by artist name.
 @Repository
 public interface TrackRepository extends MongoRepository<Track, Integer> {
+    // This is a custom query to find all tracks by artist name.
     @Query("{'trackArtist.artistName':{$in:[?0]}}")
     List<Track> findAllTrackTrackName(String trackName);
-
 }

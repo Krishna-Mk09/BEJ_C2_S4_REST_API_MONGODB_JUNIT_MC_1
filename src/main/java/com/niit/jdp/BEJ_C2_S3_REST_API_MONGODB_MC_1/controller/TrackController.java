@@ -18,27 +18,53 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1")
 public class TrackController {
+    // A private variable of type TrackService.
     private final TrackService trackService;
 
+    // A constructor injection.
     @Autowired
     public TrackController(TrackService trackService) {
         this.trackService = trackService;
     }
 
+    /**
+     * The function is a POST request that takes in a JSON object and returns a JSON object
+     *
+     * @param track The object that is to be saved in the database.
+     * @return ResponseEntity<?>
+     */
     @PostMapping("insertTrack")
     public ResponseEntity<?> saveFunction(@RequestBody Track track) {
         return new ResponseEntity<>(trackService.saveTrack(track), HttpStatus.CREATED);
     }
 
+    /**
+     * It returns a list of all the tracks in the database
+     *
+     * @return A list of all the tracks in the database.
+     */
     @GetMapping("/fetchAllTracks")
     public ResponseEntity<?> fetchAllTracksFunction() {
         return new ResponseEntity<>(trackService.getAllTracks(), HttpStatus.CREATED);
     }
 
+    /**
+     * This function is used to fetch all the tracks by their id
+     *
+     * @param trackId The id of the track you want to fetch.
+     * @return ResponseEntity<?>
+     */
     @GetMapping("/fetchAllTracksById/{trackId}")
     public ResponseEntity<?> fetchAllTracksByIdFunction(@PathVariable int trackId) {
         return new ResponseEntity<>(trackService.getTrackById(trackId), HttpStatus.CREATED);
     }
+
+    /**
+     * This function is used to fetch all the tracks by track name
+     *
+     * @param trackName The name of the track.
+     * @return ResponseEntity<?>
+     */
 
     @GetMapping("/fetchTrackByArtistName/{trackName}")
     public ResponseEntity<?> fetchAllTracksByNameFunction(@PathVariable String trackName) {
@@ -46,10 +72,14 @@ public class TrackController {
 
     }
 
+    /**
+     * This function deletes a track by its id
+     *
+     * @param trackId The id of the track to be deleted.
+     * @return ResponseEntity is being returned.
+     */
     @DeleteMapping("/DeleteTracksById/{trackId}")
     public ResponseEntity<?> DeleteTracksByIdFunction(@PathVariable int trackId) {
         return new ResponseEntity<>(trackService.deleteTrackById(trackId), HttpStatus.OK);
     }
-
-
 }
