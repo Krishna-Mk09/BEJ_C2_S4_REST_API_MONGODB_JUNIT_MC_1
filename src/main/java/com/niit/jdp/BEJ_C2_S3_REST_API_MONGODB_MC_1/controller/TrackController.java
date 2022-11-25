@@ -96,6 +96,17 @@ public class TrackController {
         } catch (Exception e) {
             return new ResponseEntity<>("Server Error!!!Try after Sometime", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * This function is used to fetch all the tracks by track rating greater than the given track rating
+     *
+     * @param trackRating The rating of the track.
+     * @return ResponseEntity<?>
+     */
+    @GetMapping("/fetchTrackByRating/{trackRating}")
+    public ResponseEntity<?> fetchAllTracksByRatingFunction(@PathVariable int trackRating) {
+        return new ResponseEntity<>(trackService.getTrackBtTrackRatingGreaterThan(trackRating), HttpStatus.CREATED);
 
     }
 }

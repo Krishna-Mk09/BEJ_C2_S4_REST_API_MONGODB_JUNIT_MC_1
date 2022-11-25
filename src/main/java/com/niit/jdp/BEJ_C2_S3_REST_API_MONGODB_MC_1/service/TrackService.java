@@ -49,4 +49,6 @@ public interface TrackService {
      */
     List<Track> findTrackTrackName(String trackName);
 
+    List<Track> getTrackBtTrackRatingGreaterThan(int trackRating);
+
 }

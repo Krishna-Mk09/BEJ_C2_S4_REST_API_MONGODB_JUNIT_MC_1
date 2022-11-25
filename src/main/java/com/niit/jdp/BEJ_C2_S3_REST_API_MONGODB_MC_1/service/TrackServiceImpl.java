@@ -61,7 +61,12 @@ public class TrackServiceImpl implements TrackService {
      */
     @Override
     public Optional<Track> getTrackById(int trackId) {
-        return trackRepository.findById(trackId);
+        try {
+            return trackRepository.findById(trackId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
@@ -89,6 +94,17 @@ public class TrackServiceImpl implements TrackService {
     @Override
     public List<Track> findTrackTrackName(String trackName) {
         return trackRepository.findAllTrackTrackName(trackName);
+    }
+
+    /**
+     * > This function returns a list of tracks whose track rating is greater than the given track rating
+     *
+     * @param trackRating The track rating to be searched for.
+     * @return List of tracks
+     */
+    @Override
+    public List<Track> getTrackBtTrackRatingGreaterThan(int trackRating) {
+        return trackRepository.findByTrackRatingGreaterThan(trackRating);
     }
 
 }

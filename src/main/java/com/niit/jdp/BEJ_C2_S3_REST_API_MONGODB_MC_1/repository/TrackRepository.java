@@ -13,4 +13,6 @@ public interface TrackRepository extends MongoRepository<Track, Integer> {
     // This is a custom query to find all tracks by artist name.
     @Query("{'trackArtist.artistName':{$in:[?0]}}")
     List<Track> findAllTrackTrackName(String trackName);
+
+    List<Track> findByTrackRatingGreaterThan(int rating);
 }
