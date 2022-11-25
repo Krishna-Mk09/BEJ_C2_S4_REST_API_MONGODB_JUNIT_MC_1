@@ -9,6 +9,8 @@
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.controller;
 
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackAlreadyExists;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotExists;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +36,15 @@ public class TrackController {
      * @return ResponseEntity<?>
      */
     @PostMapping("insertTrack")
-    public ResponseEntity<?> saveFunction(@RequestBody Track track) {
-        return new ResponseEntity<>(trackService.saveTrack(track), HttpStatus.CREATED);
+    public ResponseEntity<?> saveFunction(@RequestBody Track track) throws TrackAlreadyExists {
+        try {
+            return new ResponseEntity<>(trackService.saveTrack(track), HttpStatus.CREATED);
+        } catch (TrackAlreadyExists e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Server Error!!!Try after Sometime", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     /**
@@ -79,7 +88,14 @@ public class TrackController {
      * @return ResponseEntity is being returned.
      */
     @DeleteMapping("/DeleteTracksById/{trackId}")
-    public ResponseEntity<?> DeleteTracksByIdFunction(@PathVariable int trackId) {
-        return new ResponseEntity<>(trackService.deleteTrackById(trackId), HttpStatus.OK);
+    public ResponseEntity<?> DeleteTracksByIdFunction(@PathVariable int trackId) throws TrackNotExists {
+        try {
+            return new ResponseEntity<>(trackService.deleteTrackById(trackId), HttpStatus.OK);
+        } catch (TrackNotExists e) {
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Server Error!!!Try after Sometime", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

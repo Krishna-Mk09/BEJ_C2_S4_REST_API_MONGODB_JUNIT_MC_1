@@ -8,5 +8,5 @@
 
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception;
 
-public class TrackNotExists extends Throwable {
+public class TrackNotFound {
 }

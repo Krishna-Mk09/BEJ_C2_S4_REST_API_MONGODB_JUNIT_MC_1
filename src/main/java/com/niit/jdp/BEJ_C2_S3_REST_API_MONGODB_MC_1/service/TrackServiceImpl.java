@@ -9,6 +9,8 @@
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.service;
 
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackAlreadyExists;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotExists;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,10 @@ public class TrackServiceImpl implements TrackService {
      * @return Track
      */
     @Override
-    public Track saveTrack(Track track) {
+    public Track saveTrack(Track track) throws TrackAlreadyExists {
+        if (trackRepository.findById(track.getTrackId()).isPresent()) {
+            throw new TrackAlreadyExists();
+        }
         return trackRepository.save(track);
     }
 
@@ -67,7 +72,10 @@ public class TrackServiceImpl implements TrackService {
      * @return boolean
      */
     @Override
-    public boolean deleteTrackById(int trackId) {
+    public boolean deleteTrackById(int trackId) throws TrackNotExists {
+        if (trackRepository.findById(trackId).isEmpty()) {
+            throw new TrackNotExists();
+        }
         trackRepository.deleteById(trackId);
         return true;
     }

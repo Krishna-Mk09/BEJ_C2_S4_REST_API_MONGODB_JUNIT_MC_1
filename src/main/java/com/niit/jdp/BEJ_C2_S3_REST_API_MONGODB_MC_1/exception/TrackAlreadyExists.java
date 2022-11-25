@@ -8,5 +8,9 @@
 
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception;
 
-public class TrackAlreadyExists {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(code = HttpStatus.CONFLICT, reason = "Track with specified code already exists")
+public class TrackAlreadyExists extends Exception {
 }

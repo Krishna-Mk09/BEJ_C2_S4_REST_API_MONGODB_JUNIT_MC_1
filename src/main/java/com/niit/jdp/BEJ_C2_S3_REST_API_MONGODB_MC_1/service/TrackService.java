@@ -1,6 +1,8 @@
 package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.service;
 
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.domain.Track;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackAlreadyExists;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_MC_1.exception.TrackNotExists;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +16,7 @@ public interface TrackService {
      * @param track The track object to be saved.
      * @return The track object that was saved.
      */
-    Track saveTrack(Track track);
+    Track saveTrack(Track track) throws TrackAlreadyExists;
 
     /**
      * Get all tracks.
@@ -37,7 +39,7 @@ public interface TrackService {
      * @param trackId The id of the track to delete.
      * @return boolean
      */
-    boolean deleteTrackById(int trackId);
+    boolean deleteTrackById(int trackId) throws TrackNotExists;
 
     /**
      * Find all tracks with the given track name.
