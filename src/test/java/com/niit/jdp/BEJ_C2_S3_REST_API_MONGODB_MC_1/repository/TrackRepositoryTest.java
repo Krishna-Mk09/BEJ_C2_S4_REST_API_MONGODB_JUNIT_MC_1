@@ -10,14 +10,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
-
 @ExtendWith(SpringExtension.class)
 @DataMongoTest
 class TrackRepositoryTest {
     private TrackRepository trackRepository;
     private Track track;
-    private Artist trackArtist;
+    private Artist trackArtist, trackArtist2;
 
     @BeforeEach
     void setUp() {
@@ -82,17 +80,5 @@ class TrackRepositoryTest {
         Assertions.assertNotEquals(11, trackArtist.getArtistId());
     }
 
-    @Test
-    void getAllTracks() {
-        Track s1 = trackRepository.save(track);
-        trackRepository.findById(track.getTrackId());
-        Assertions.assertEquals(1, trackRepository.count());
-    }
 
-    @Test
-    void deleteById() {
-        trackRepository.save(track);
-        trackRepository.delete(track);
-        Assertions.assertEquals(Optional.empty(), trackRepository.findById(track.getTrackId()));
-    }
 }
