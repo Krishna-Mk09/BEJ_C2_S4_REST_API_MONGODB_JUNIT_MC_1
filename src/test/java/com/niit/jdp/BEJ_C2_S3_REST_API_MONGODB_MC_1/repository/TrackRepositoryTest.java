@@ -27,9 +27,11 @@ class TrackRepositoryTest {
     void tearDown() {
         track = null;
         trackArtist = null;
-        trackRepository.deleteAll();
     }
 
+    /**
+     * It checks if the track name is equal to isa.
+     */
     @Test
     void findByTrackName() {
         Assertions.assertEquals("isa", track.getTrackName());
@@ -79,6 +81,5 @@ class TrackRepositoryTest {
     void findByArtistIdNot() {
         Assertions.assertNotEquals(11, trackArtist.getArtistId());
     }
-
 
 }
